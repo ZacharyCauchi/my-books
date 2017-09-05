@@ -1,0 +1,60 @@
+body {
+    background-color: #F85F73;
+    font-family: 'Lato', 'verdana';
+    height: 500px;
+}
+
+.loginBox{
+    position: relative;
+    margin: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    width: 40%;
+    background-color: #FBE8D3;
+    border-style: solid;
+    border-width: 0px;
+    border-color: #928A97;
+    border-radius: 20px;
+    font-size: 25px;
+    color: #283C63;
+    padding: 2%;
+}
+
+form{
+    width: 100%;
+}
+
+h2{
+    font-size: 35px;
+    color: #283C63;
+    text-align: center;
+}
+
+input {
+    height: 20px;
+    border-style: none;
+    width:30%;
+    display: inline-block;
+    
+}
+
+input[type=Submit] {
+ margin:0 35%;
+ width:30%;
+
+}
+
+#register {
+    width: 50%;
+    margin:0 25%;
+}
+
+.loginText {
+    width:50%;
+    display: inline-block;
+    text-align: right;
+}
