@@ -1,18 +1,20 @@
 <?php
 include('loginFunction.php');
 include('registerFunction.php');
+include('../model/selectFunction.php');
 
 session_start();
 if(!isset($_SESSION['failCount'])){
     $_SESSION['failCount'] = 0;
 }
-if(isset($_POST['logout'])) {
+if(isset($_GET['logout'])) {
     session_destroy();
     header('Location:../index.php');
 }
 
 if(isset($_SESSION['loggedIn'])){
     if($_SESSION['loggedIn'] == true){
+        include '../view/headerSecure.php';
         include '../view/secure.php';
         
     }
@@ -35,7 +37,7 @@ if(isset($_SESSION['loggedIn'])){
         }  
      
     } else {
-            if ($_SESSION['failCount'] > 10){
+            if ($_SESSION['failCount'] > 50){
                 echo 'Too many failed attempts, try again soon';
             } else {
                     include '../view/login.php';

@@ -1,7 +1,49 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+
 body {
     background-color: #F85F73;
     font-family: 'Lato', 'verdana';
     height: 500px;
+    padding: 0;
+    margin: 0px;
+    line-height: 1;
 }
 
 .loginBox{
@@ -57,4 +99,34 @@ input[type=Submit] {
     width:50%;
     display: inline-block;
     text-align: right;
+}
+
+#header {
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+    height: auto;
+    background-color: #632d34;
+    color: white;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    font-family: 'Lato', 'verdana';
+    font-size: 40px;
+    padding: 1%;
+}
+
+a:link, a:visited, a:hover, a:active {
+  text-decoration: none; 
+  color: white;
+}
+.bookCoverContainer{
+    display: flex;
+    flex-flow: row wrap;
+    align-content: space-around;
+}
+
+.bookCover {
+    display: flex;
+    padding: .5%;
 }
