@@ -16,6 +16,14 @@ if(isset($_SESSION['loggedIn'])){
     if($_SESSION['loggedIn'] == true){
         include '../view/headerSecure.php';
         include '../view/secure.php';
+        if(isset($_GET['request'])){
+            if($_GET['request'] == 'newBook'){
+                include '../view/newBook.php';
+            }
+            elseif($_GET['request'] == 'newBookSubmit'){
+                insertFunction()
+            }
+        }
         
     }
 } else {

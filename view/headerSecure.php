@@ -11,6 +11,7 @@
 <body>
     <div id="header">
         <a href="../controller/loginController.php">My Books</a>
+        <a href="../controller/loginController.php?request=newBook">Add</a>
         <a href="../controller/loginController.php?logout=true">LogOut</a>
     </div>
 </body>

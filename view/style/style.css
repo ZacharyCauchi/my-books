@@ -130,3 +130,27 @@ a:link, a:visited, a:hover, a:active {
     display: flex;
     padding: .5%;
 }
+
+#newBookForm {
+    background-color: #c1c1c1;
+    width: 100%;
+    height: auto;
+    padding: 2%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.inputText {
+    width: 40%;
+    padding: .5%;
+    text-align: right;
+    
+}
+
+.newBookInputField {
+    width: 20%;
+    margin: .5%;
+    margin-right: 20%;
+
+}
