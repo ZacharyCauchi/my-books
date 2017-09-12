@@ -2,6 +2,8 @@
 include('loginFunction.php');
 include('registerFunction.php');
 include('../model/selectFunction.php');
+include('../model/insertFunction.php');
+
 
 session_start();
 if(!isset($_SESSION['failCount'])){
@@ -21,7 +23,18 @@ if(isset($_SESSION['loggedIn'])){
                 include '../view/newBook.php';
             }
             elseif($_GET['request'] == 'newBookSubmit'){
-                insertFunction()
+                $title = $_POST['bookTitle'];
+                $original = $_POST['originalTitle'];
+                $year = $_POST['publicationYear'];
+                $genre = $_POST['genre'];
+                $millions = $_POST['millionsSold'];
+                $lang = $_POST['language'];
+                $author = $_POST['authorID'];
+                $cover = $_POST['bookCoverUrl'];
+                if($_POST['bookCoverUrl'] == ''){
+                    $cover = NULL;
+                }
+                insertFunction(array('state' => 'insertNewBook'), $title, $original, $year, $genre, $millions, $lang, $author, $cover);
             }
         }
         
