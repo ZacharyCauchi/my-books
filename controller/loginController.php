@@ -23,6 +23,15 @@ if(isset($_SESSION['loggedIn'])){
                 include '../view/newBook.php';
             }
             elseif($_GET['request'] == 'newBookSubmit'){
+                //insert new author on table
+
+                //use last insert id to use the new author id in book submission
+
+                //use last insert id to reference bookID in bookplot
+
+                //insert modification in modifications table
+
+
                 $title = $_POST['bookTitle'];
                 $original = $_POST['originalTitle'];
                 $year = $_POST['publicationYear'];
@@ -31,7 +40,7 @@ if(isset($_SESSION['loggedIn'])){
                 $lang = $_POST['language'];
                 $author = $_POST['authorID'];
                 $cover = $_POST['bookCoverUrl'];
-                if($_POST['bookCoverUrl'] == ''){
+                if(isset($_POST['bookCoverUrl']) == false){
                     $cover = NULL;
                 }
                 insertFunction(array('state' => 'insertNewBook'), $title, $original, $year, $genre, $millions, $lang, $author, $cover);
