@@ -124,11 +124,18 @@ a:link, a:visited, a:hover, a:active {
     display: flex;
     flex-flow: row wrap;
     align-content: space-around;
+    justify-content: center;
 }
 
 .bookCover {
-    display: flex;
+    display: inline-block;
     padding: .5%;
+    width: auto;
+}
+
+h6 {
+    width: 203px;
+    text-align: center;
 }
 
 #newBookForm {

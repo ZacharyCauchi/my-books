@@ -11,9 +11,7 @@ function insertFunction($conditions = array(), $title, $original, $year, $genre,
             $sql = "INSERT INTO book (BookTitle, OriginalTitle, YearofPublication, Genre, MillionsSold, LanguageWritten, AuthorID, BookCoverURL) VALUES('" . $title . "', '" . $original . "', " . $year . ", '" . $genre . "', " . $millions .", '" . $lang . "', " . $author . ", " . $cover . ")";
             $res = $db->prepare($sql);
             $res->execute();
-
-            echo $sql;
-            //header('Location:loginController.php');
+            header('Location:loginController.php');
     }
 }
 }

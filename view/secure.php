@@ -24,6 +24,7 @@
                             } else {
                             echo "../view/images/BookCovers/default.png";
                             } ?>"/>
+                            <h6> <?php echo $row['BookTitle']; ?> </h6>
                         </div>
                         <?php
                     }
