@@ -8,6 +8,7 @@ function loginFunction($user, $pass){
     $x = $dbPassword['password'];
     if(password_verify($pass, $x)){
         $_SESSION['loggedIn'] = true;
+        $_SESSION['adminID'] = $dbPassword['userID'];
         header('Location:loginController.php');
     } else {
         $_SESSION['failCount'] = $_SESSION['failCount'] + 1;

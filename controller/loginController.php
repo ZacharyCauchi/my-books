@@ -23,27 +23,31 @@ if(isset($_SESSION['loggedIn'])){
                 include '../view/newBook.php';
             }
             elseif($_GET['request'] == 'newBookSubmit'){
-                //insert new author on table
-
-                //use last insert id to use the new author id in book submission
-
-                //use last insert id to reference bookID in bookplot
-
-                //insert modification in modifications table
-
-
+                // insert new author on table
+                $authorName = $_POST['authorName'];
+                $authorSurname = $_POST['authorSurname'];
+                $authorNation = $_POST['authorNation'];
+                $authorBirth = $_POST['authorBirth'];
+                $authorDeath = $_POST['authorDeath'];
+                insertFunction(array('state' => 'insertNewAuthor'), array('authorName' => $authorName, 'authorSurname' => $authorSurname, 'authorNation' => $authorNation, 'authorBirth' => $authorBirth, 'authorDeath' => $authorDeath));
+                // use last insert id to use the new author id in book submission
                 $title = $_POST['bookTitle'];
                 $original = $_POST['originalTitle'];
                 $year = $_POST['publicationYear'];
                 $genre = $_POST['genre'];
                 $millions = $_POST['millionsSold'];
                 $lang = $_POST['language'];
-                $author = $_POST['authorID'];
                 $cover = $_POST['bookCoverUrl'];
                 if(isset($_POST['bookCoverUrl']) == false){
                     $cover = NULL;
                 }
-                insertFunction(array('state' => 'insertNewBook'), $title, $original, $year, $genre, $millions, $lang, $author, $cover);
+                insertFunction(array('state' => 'insertNewBook'), array('title' => $title, 'original' => $original, 'year' => $year, 'genre' => $genre, 'millions' => $millions, 'lang' => $lang, 'author' => $lastInsert, 'cover' => $cover));
+                // use last insert id to reference bookID in bookplot
+                $plot = $_POST['plot'];
+                $plotSource = $_POST['plotSource'];
+                insertFunction(array('state' => 'insertBookPlot'), array('plot' => $plot, 'plotSource' => $plotSource));
+                // insert modification in modifications table
+                insertFunction(array('state' => 'insertModification'), array('admin' => $_SESSION['adminID']));
             }
         }
         
