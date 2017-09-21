@@ -52,6 +52,8 @@ if(isset($_SESSION['loggedIn'])){
                 insertFunction(array('state' => 'insertModification'), array('admin' => $_SESSION['adminID']));
             } elseif($_GET['request'] == 'delete'){
                 deleteFunction(array('state' => 'deleteBook'), array('bookID' => $_GET['bookID']));
+            } elseif($_GET['request'] == 'updateView'){
+                include '../view/updateBook.php';
             }
         }
         

@@ -25,7 +25,8 @@
                             echo "../view/images/BookCovers/default.png";
                             } ?>"/>
                             <h6> <?php echo $row['BookTitle']; ?> </h6>
-                            <h6><a href="loginController.php?request=delete&bookID=<?php echo $row['BookID'];?>" >Delete</a></h6> 
+                            <h6><a href="loginController.php?request=delete&bookID=<?php echo $row['BookID'];?>" >Delete</a></h6>
+                            <h6><a href="loginController.php?request=updateView&bookID=<?php echo $row['BookID'];?>" >Edit</a></h6> 
                         </div>
                         <?php
                     }

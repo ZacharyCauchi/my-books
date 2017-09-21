@@ -15,6 +15,9 @@ function selectFunction($user, $conditions = array()){
             else if ($conditions['table'] == 'books'){
                 $sql = 'SELECT * FROM ';
                 $sql = $sql . "Book";
+                if (isset($conditions['where'])){
+                    $sql = $sql . " WHERE BookID = " . $conditions['where'];
+                }
                 $res = $db->prepare($sql);
                 $res->execute();
                 $queryResults = $res->fetchALL();
