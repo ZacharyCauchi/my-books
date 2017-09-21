@@ -25,7 +25,6 @@ function insertFunction($conditions = array(), $values = array()){
             $sql = $sql . "bookplot (Plot, PlotSource, BookID) VALUES('" . $values['plot'] . "', '" . $values['plotSource'] . "', " . $lastInsert . ")";
             $res = $db->prepare($sql);
             $res->execute();
-            echo $sql;
         } else if($conditions['state'] == 'insertModification'){
             global $lastInsert;
             $sql = $sql . "modifications (modificationDate, BookID, UserID) VALUES(CURRENT_TIMESTAMP," . $lastInsert . ", " . $values['admin'] . ")";

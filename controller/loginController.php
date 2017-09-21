@@ -1,8 +1,10 @@
 <?php
 include('loginFunction.php');
 include('registerFunction.php');
+
 include('../model/selectFunction.php');
 include('../model/insertFunction.php');
+include('../model/deleteFunction.php');
 
 
 session_start();
@@ -48,6 +50,8 @@ if(isset($_SESSION['loggedIn'])){
                 insertFunction(array('state' => 'insertBookPlot'), array('plot' => $plot, 'plotSource' => $plotSource));
                 // insert modification in modifications table
                 insertFunction(array('state' => 'insertModification'), array('admin' => $_SESSION['adminID']));
+            } elseif($_GET['request'] == 'delete'){
+                deleteFunction(array('state' => 'deleteBook'), array('bookID' => $_GET['bookID']));
             }
         }
         
