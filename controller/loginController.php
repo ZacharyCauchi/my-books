@@ -5,6 +5,7 @@ include('registerFunction.php');
 include('../model/selectFunction.php');
 include('../model/insertFunction.php');
 include('../model/deleteFunction.php');
+include('../model/updateFunction.php');
 
 
 session_start();
@@ -53,7 +54,19 @@ if(isset($_SESSION['loggedIn'])){
             } elseif($_GET['request'] == 'delete'){
                 deleteFunction(array('state' => 'deleteBook'), array('bookID' => $_GET['bookID']));
             } elseif($_GET['request'] == 'updateView'){
-                include '../view/updateBook.php';
+                include_once '../view/updateBook.php';
+            } elseif($_GET['request'] == 'updateBookSubmit'){
+                $title = $_POST['updatedBookTitle'];
+                $original = $_POST['updatedOriginalTitle'];
+                $year = $_POST['updatedPublicationYear'];
+                $genre = $_POST['updatedGenre'];
+                $millions = $_POST['updatedMillionsSold'];
+                $lang = $_POST['updatedLanguage'];
+                $cover = $_POST['updatedBookCoverUrl'];
+                if(isset($_POST['updatedBookCoverUrl']) == false){
+                    $cover = NULL;
+                }
+                updateFunction(array('state' => 'updateBook'), array('title' => $title, 'original' => $original, 'year' => $year, 'genre' => $genre, 'millions' => $millions, 'lang' => $lang, 'cover' => $cover, 'BookID' => $_GET['BookID']));
             }
         }
         

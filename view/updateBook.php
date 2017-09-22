@@ -10,14 +10,14 @@
 $bookTable = selectFunction(0, array('state' => 'returnAll', 'table' => 'books', 'where' => $_GET['bookID']));
 ?>
 <body>
-    <form id="newBookForm"  action="loginController.php?request=updateBookSubmit" method="POST">
-        <div class="inputText">Title:</div><input class="newBookInputField" type="text" name="bookTitle" value="<?php if(isset($bookTable[0]['BookTitle'])){echo $bookTable[0]['BookTitle'];} ?>"></input>
-        <div class="inputText">Original Title:</div><input class="newBookInputField"  type="text" name="originalTitle" value="<?php if(isset($bookTable[0]['OriginalTitle'])){echo $bookTable[0]['OriginalTitle'];} ?>"></input>
-        <div class="inputText">Year of Publication:</div><input class="newBookInputField"  type="text" name="publicationYear" value="<?php if(isset($bookTable[0]['YearofPublication'])){echo $bookTable[0]['YearofPublication'];} ?>"></input>
-        <div class="inputText">Genre:</div><input class="newBookInputField"  type="text" name="genre" value="<?php if(isset($bookTable[0]['Genre'])){echo $bookTable[0]['Genre'];} ?>"></input>
-        <div class="inputText">Millions Sold:</div><input class="newBookInputField"  type="text" name="millionsSold" value="<?php if(isset($bookTable[0]['MillionsSold'])){echo $bookTable[0]['MillionsSold'];} ?>"></input>
-        <div class="inputText">Language:</div><input class="newBookInputField"  type="text" name="language" value="<?php if(isset($bookTable[0]['LanguageWritten'])){echo $bookTable[0]['LanguageWritten'];} ?>"></input>
-        <div class="inputText">BookCoverUrl:</div><input class="newBookInputField"  type="text" name="bookCoverUrl" value="<?php if(isset($bookTable[0]['BookCoverUrl'])){echo $bookTable[0]['BookCoverUrl'];} ?>"></input>
+    <form id="newBookForm"  action="loginController.php?request=updateBookSubmit&BookID=<?php echo $_GET['bookID']; ?>" method="POST">
+        <div class="inputText">Title:</div><input class="newBookInputField" type="text" name="updatedBookTitle" value="<?php if(isset($bookTable[0]['BookTitle'])){echo $bookTable[0]['BookTitle'];} ?>"></input>
+        <div class="inputText">Original Title:</div><input class="newBookInputField"  type="text" name="updatedOriginalTitle" value="<?php if(isset($bookTable[0]['OriginalTitle'])){echo $bookTable[0]['OriginalTitle'];} ?>"></input>
+        <div class="inputText">Year of Publication:</div><input class="newBookInputField"  type="text" name="updatedPublicationYear" value="<?php if(isset($bookTable[0]['YearofPublication'])){echo $bookTable[0]['YearofPublication'];} ?>"></input>
+        <div class="inputText">Genre:</div><input class="newBookInputField"  type="text" name="updatedGenre" value="<?php if(isset($bookTable[0]['Genre'])){echo $bookTable[0]['Genre'];} ?>"></input>
+        <div class="inputText">Millions Sold:</div><input class="newBookInputField"  type="text" name="updatedMillionsSold" value="<?php if(isset($bookTable[0]['MillionsSold'])){echo $bookTable[0]['MillionsSold'];} ?>"></input>
+        <div class="inputText">Language:</div><input class="newBookInputField"  type="text" name="updatedLanguage" value="<?php if(isset($bookTable[0]['LanguageWritten'])){echo $bookTable[0]['LanguageWritten'];} ?>"></input>
+        <div class="inputText">BookCoverUrl:</div><input class="newBookInputField"  type="text" name="updatedBookCoverUrl" value="<?php if(isset($bookTable[0]['BookCoverUrl'])){echo $bookTable[0]['BookCoverUrl'];} ?>"></input>
         <input type="submit" name="submit" value="submit"></input>
     </form>
 </body>
