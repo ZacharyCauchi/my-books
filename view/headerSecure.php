@@ -10,9 +10,9 @@
 </head>
 <body>
     <div id="header">
-        <a href="../controller/loginController.php">My Books</a>
-        <a href="../controller/loginController.php?request=newBook">Add</a>
-        <a href="../controller/loginController.php?logout=true">LogOut</a>
+        <a href="../controller/loginController.php" class="headerButton">My Books</a>
+        <a href="../controller/loginController.php?request=newBook" class="headerButton">Add</a>
+        <a href="../controller/loginController.php?logout=true" class="headerButton">LogOut</a>
     </div>
 </body>
 </html>

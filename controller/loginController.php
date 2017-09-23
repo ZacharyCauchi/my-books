@@ -2,6 +2,8 @@
 include('loginFunction.php');
 include('registerFunction.php');
 
+include('inputFilter.php');
+
 include('../model/selectFunction.php');
 include('../model/insertFunction.php');
 include('../model/deleteFunction.php');
@@ -27,27 +29,27 @@ if(isset($_SESSION['loggedIn'])){
             }
             elseif($_GET['request'] == 'newBookSubmit'){
                 // insert new author on table
-                $authorName = $_POST['authorName'];
-                $authorSurname = $_POST['authorSurname'];
-                $authorNation = $_POST['authorNation'];
-                $authorBirth = $_POST['authorBirth'];
-                $authorDeath = $_POST['authorDeath'];
+                $authorName = filter_var(inputCheck($_POST['authorName']), FILTER_SANITIZE_STRING);
+                $authorSurname = filter_var(inputCheck($_POST['authorSurname']), FILTER_SANITIZE_STRING);
+                $authorNation = filter_var(inputCheck($_POST['authorNation']), FILTER_SANITIZE_STRING);
+                $authorBirth = filter_var(inputCheck($_POST['authorBirth']), FILTER_SANITIZE_STRING);
+                $authorDeath = filter_var(inputCheck($_POST['authorDeath']), FILTER_SANITIZE_STRING);
                 insertFunction(array('state' => 'insertNewAuthor'), array('authorName' => $authorName, 'authorSurname' => $authorSurname, 'authorNation' => $authorNation, 'authorBirth' => $authorBirth, 'authorDeath' => $authorDeath));
                 // use last insert id to use the new author id in book submission
-                $title = $_POST['bookTitle'];
-                $original = $_POST['originalTitle'];
-                $year = $_POST['publicationYear'];
-                $genre = $_POST['genre'];
-                $millions = $_POST['millionsSold'];
-                $lang = $_POST['language'];
-                $cover = $_POST['bookCoverUrl'];
+                $title = filter_var(inputCheck($_POST['bookTitle']), FILTER_SANITIZE_STRING);
+                $original = filter_var(inputCheck($_POST['originalTitle']), FILTER_SANITIZE_STRING);
+                $year = filter_var(inputCheck($_POST['publicationYear']), FILTER_SANITIZE_STRING);
+                $genre = filter_var(inputCheck($_POST['genre']), FILTER_SANITIZE_STRING);
+                $millions = filter_var(inputCheck($_POST['millionsSold']), FILTER_SANITIZE_STRING);
+                $lang = filter_var(inputCheck($_POST['language']), FILTER_SANITIZE_STRING);
+                $cover = filter_var(inputCheck($_POST['bookCoverUrl']), FILTER_SANITIZE_STRING);
                 if(isset($_POST['bookCoverUrl']) == false){
                     $cover = NULL;
                 }
                 insertFunction(array('state' => 'insertNewBook'), array('title' => $title, 'original' => $original, 'year' => $year, 'genre' => $genre, 'millions' => $millions, 'lang' => $lang, 'author' => $lastInsert, 'cover' => $cover));
                 // use last insert id to reference bookID in bookplot
-                $plot = $_POST['plot'];
-                $plotSource = $_POST['plotSource'];
+                $plot = filter_var(inputCheck($_POST['plot']), FILTER_SANITIZE_STRING);
+                $plotSource = filter_var(inputCheck($_POST['plotSource']), FILTER_SANITIZE_STRING);
                 insertFunction(array('state' => 'insertBookPlot'), array('plot' => $plot, 'plotSource' => $plotSource));
                 // insert modification in modifications table
                 insertFunction(array('state' => 'insertModification'), array('admin' => $_SESSION['adminID']));
@@ -56,13 +58,13 @@ if(isset($_SESSION['loggedIn'])){
             } elseif($_GET['request'] == 'updateView'){
                 include_once '../view/updateBook.php';
             } elseif($_GET['request'] == 'updateBookSubmit'){
-                $title = $_POST['updatedBookTitle'];
-                $original = $_POST['updatedOriginalTitle'];
-                $year = $_POST['updatedPublicationYear'];
-                $genre = $_POST['updatedGenre'];
-                $millions = $_POST['updatedMillionsSold'];
-                $lang = $_POST['updatedLanguage'];
-                $cover = $_POST['updatedBookCoverUrl'];
+                $title = filter_var(inputCheck($_POST['updatedBookTitle']), FILTER_SANITIZE_STRING);
+                $original = filter_var(inputCheck($_POST['updatedOriginalTitle']), FILTER_SANITIZE_STRING);
+                $year = filter_var(inputCheck($_POST['updatedPublicationYear']), FILTER_SANITIZE_STRING);
+                $genre = filter_var(inputCheck($_POST['updatedGenre']), FILTER_SANITIZE_STRING);
+                $millions = filter_var(inputCheck($_POST['updatedMillionsSold']), FILTER_SANITIZE_STRING);
+                $lang = filter_var(inputCheck($_POST['updatedLanguage']), FILTER_SANITIZE_STRING);
+                $cover = filter_var(inputCheck($_POST['updatedBookCoverUrl']), FILTER_SANITIZE_STRING);
                 if(isset($_POST['updatedBookCoverUrl']) == false){
                     $cover = NULL;
                 }
@@ -74,16 +76,16 @@ if(isset($_SESSION['loggedIn'])){
 } else {
     if(isset($_GET['state'])){
         if($_GET['state'] == 'loginTry'){
-            $user = $_POST["username"];
-            $pass = $_POST["password"];
+            $user = filter_var(inputCheck($_POST['username']), FILTER_SANITIZE_STRING);
+            $pass = filter_var(inputCheck($_POST['password']), FILTER_SANITIZE_STRING);
             loginFunction($user, $pass);
 
         } elseif($_GET['state'] == 'registration'){
-            $firstName = $_POST["firstName"];
-            $lastName = $_POST["lastName"];
-            $email = $_POST["email"];
-            $user = $_POST["username"];
-            $pass = $_POST["password"];
+            $firstName = filter_var(inputCheck($_POST['firstName']), FILTER_SANITIZE_STRING);
+            $lastName = $filter_var(inputCheck($_POST['lastName']), FILTER_SANITIZE_STRING);
+            $email = filter_var(inputCheck($_POST['email']), FILTER_SANITIZE_STRING);
+            $user = filter_var(inputCheck($_POST['username']), FILTER_SANITIZE_STRING);
+            $pass = filter_var(inputCheck($_POST['password']), FILTER_SANITIZE_STRING);
             registerFunction($firstName, $lastName, $email, $user, $pass);
         } elseif($_GET['state'] == 'registrationForm'){
             include '../view/registration.php';
