@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.0
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 06, 2017 at 08:25 AM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 5.6.28
+-- Generation Time: Sep 24, 2017 at 01:24 PM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,19 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `mybooks`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `admin`
---
-
-CREATE TABLE `admin` (
-  `AdminID` int(9) UNSIGNED NOT NULL,
-  `Username` varchar(255) NOT NULL,
-  `Password` varchar(255) NOT NULL,
-  `Role` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -61,7 +50,10 @@ INSERT INTO `author` (`AuthorID`, `Name`, `Surname`, `Nationality`, `BirthYear`,
 (6, 'Agatha', 'Christie', 'British', 1890, 1976),
 (7, 'Cao', 'Xueqin', 'Chinese', 1715, 1763),
 (8, 'Henry', ' Rider Haggard', 'British', 1856, 1925),
-(9, 'C.S.', 'Lewis', 'British', 1898, 1963);
+(9, 'C.S.', 'Lewis', 'British', 1898, 1963),
+(22, 'Sam', 'samson', 'Samville', 1902, 2002),
+(31, '2', '2', '2', 2, 2),
+(32, 'a', 'a', 'a', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -90,7 +82,7 @@ INSERT INTO `book` (`BookID`, `BookTitle`, `OriginalTitle`, `YearofPublication`,
 (2, 'A Tale of Two Cities', 'A Tale of Two Cities', 1859, 'Historical Fiction', 200, 'English', 2, '..\\view\\images\\BookCovers\\aTaleofTwoCities.jpg'),
 (3, 'The Lord of the Rings', 'The Lord of the Rings', 1954, 'Fantasy/Adventure', 150, 'English', 3, NULL),
 (4, 'The Litle Prince', 'Le Petit Prince', 1943, 'Fable', 142, 'French', 4, '..\\view\\images\\BookCovers\\theLittlePrince.jpg'),
-(5, 'Harry Potter and the Sorcerer''s Stone', 'Harry Potter and the Sorcerer''s Stone', 1997, 'Fantasy Fiction', 107, 'English', 5, NULL),
+(5, 'Harry Potter and the Sorcerer\'s Stone', 'Harry Potter and the Sorcerer\'s Stone', 1997, 'Fantasy Fiction', 107, 'English', 5, NULL),
 (6, 'And Then There Were None', 'Ten Little Niggers', 1939, 'Mystery', 100, 'English', 6, '..\\view\\images\\BookCovers\\andThenThereWereNone.jpg'),
 (7, 'The Dream of the Red Chamber', 'The Story of the Stone', 1792, 'Novel', 100, 'Chinese', 7, '..\\view\\images\\BookCovers\\redChamber.jpg'),
 (8, 'The Hobbit ', 'There and Back Again', 1937, 'High Fantasy', 100, 'English', 3, '..\\view\\images\\BookCovers\\theHobbit.jpg'),
@@ -161,10 +153,10 @@ INSERT INTO `bookranking` (`RankingID`, `RankingScore`, `BookID`) VALUES
 --
 
 CREATE TABLE `modifications` (
-  `modificationID` mediumint(9) NOT NULL,
+  `modificationID` int(10) UNSIGNED NOT NULL,
   `modificationDate` datetime NOT NULL,
   `BookID` int(10) UNSIGNED NOT NULL,
-  `AdminID` int(10) UNSIGNED NOT NULL
+  `userID` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -193,12 +185,6 @@ INSERT INTO `userdetails` (`userID`, `username`, `password`, `role`, `firstName`
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`AdminID`);
 
 --
 -- Indexes for table `author`
@@ -237,7 +223,7 @@ ALTER TABLE `bookranking`
 ALTER TABLE `modifications`
   ADD PRIMARY KEY (`modificationID`),
   ADD KEY `BookID` (`BookID`),
-  ADD KEY `AdminID` (`AdminID`);
+  ADD KEY `userID` (`userID`);
 
 --
 -- Indexes for table `userdetails`
@@ -250,30 +236,30 @@ ALTER TABLE `userdetails`
 --
 
 --
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `AdminID` int(9) UNSIGNED NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT for table `author`
 --
 ALTER TABLE `author`
-  MODIFY `AuthorID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `AuthorID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT for table `book`
 --
 ALTER TABLE `book`
-  MODIFY `BookID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `BookID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 --
 -- AUTO_INCREMENT for table `bookplot`
 --
 ALTER TABLE `bookplot`
-  MODIFY `BookPlotID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `BookPlotID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `bookranking`
 --
 ALTER TABLE `bookranking`
   MODIFY `RankingID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `modifications`
+--
+ALTER TABLE `modifications`
+  MODIFY `modificationID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `userdetails`
 --
@@ -305,8 +291,9 @@ ALTER TABLE `bookranking`
 -- Constraints for table `modifications`
 --
 ALTER TABLE `modifications`
-  ADD CONSTRAINT `AdminID` FOREIGN KEY (`AdminID`) REFERENCES `admin` (`AdminID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `BookID` FOREIGN KEY (`BookID`) REFERENCES `book` (`BookID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `BookID` FOREIGN KEY (`BookID`) REFERENCES `book` (`BookID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `UserID` FOREIGN KEY (`userID`) REFERENCES `userdetails` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

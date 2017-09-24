@@ -1,4 +1,5 @@
 <?php
+ob_start();
 include('loginFunction.php');
 include('registerFunction.php');
 
@@ -53,8 +54,10 @@ if(isset($_SESSION['loggedIn'])){
                 insertFunction(array('state' => 'insertBookPlot'), array('plot' => $plot, 'plotSource' => $plotSource));
                 // insert modification in modifications table
                 insertFunction(array('state' => 'insertModification'), array('admin' => $_SESSION['adminID']));
+                header('Location: logincontroller.php');
             } elseif($_GET['request'] == 'delete'){
                 deleteFunction(array('state' => 'deleteBook'), array('bookID' => $_GET['bookID']));
+                header('Location: logincontroller.php');
             } elseif($_GET['request'] == 'updateView'){
                 include_once '../view/updateBook.php';
             } elseif($_GET['request'] == 'updateBookSubmit'){
@@ -69,6 +72,7 @@ if(isset($_SESSION['loggedIn'])){
                     $cover = NULL;
                 }
                 updateFunction(array('state' => 'updateBook'), array('title' => $title, 'original' => $original, 'year' => $year, 'genre' => $genre, 'millions' => $millions, 'lang' => $lang, 'cover' => $cover, 'BookID' => $_GET['BookID']));
+                header('Location: logincontroller.php');
             }
         }
         
@@ -82,7 +86,7 @@ if(isset($_SESSION['loggedIn'])){
 
         } elseif($_GET['state'] == 'registration'){
             $firstName = filter_var(inputCheck($_POST['firstName']), FILTER_SANITIZE_STRING);
-            $lastName = $filter_var(inputCheck($_POST['lastName']), FILTER_SANITIZE_STRING);
+            $lastName = filter_var(inputCheck($_POST['lastName']), FILTER_SANITIZE_STRING);
             $email = filter_var(inputCheck($_POST['email']), FILTER_SANITIZE_STRING);
             $user = filter_var(inputCheck($_POST['username']), FILTER_SANITIZE_STRING);
             $pass = filter_var(inputCheck($_POST['password']), FILTER_SANITIZE_STRING);
@@ -96,8 +100,6 @@ if(isset($_SESSION['loggedIn'])){
                 echo 'Too many failed attempts, try again soon';
             } else {
                     include '../view/login.php';
-                    echo 'welcome ';
-                    echo $_SESSION['failCount'];
             }   
         }
 }
