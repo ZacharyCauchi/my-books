@@ -5,8 +5,8 @@ myBooks is being made as my final project at TAFE Brisbane while I undergo a dip
 ## To-do
 
 - [x] Registration & login
-- [ ] View all books
-- [ ] Allow users to delete books
-- [ ] Allow users to update book information
+- [x] View all books
+- [x] Allow users to delete books
+- [x] Allow users to update book information
 
 made by @zacharycauchi with :coffee: & :heart:
